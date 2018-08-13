@@ -6,16 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class TestDB {
-	
+
 	public static void main(String[] args) {
 		
-		Connection connection = null;
+		Connection con = null;
 		try {
-			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
 			
-			Statement statement = connection.createStatement();
+			con = Database.getInstance().getConnection();
+			
+			Statement statement = con.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
 			statement.executeUpdate("drop table if exists person");
@@ -29,18 +31,21 @@ public class TestDB {
 				System.out.println("name = " + rs.getString("name"));
 				System.out.println("id = " + rs.getInt("id"));
 			}
+			JOptionPane.showMessageDialog(null, "ALL FINE!!!");
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
 			System.err.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
 		} finally {
 			try {
-				if (connection != null)
-					connection.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException e) {
 				// connection close failed.
 				System.err.println(e);
 			}
 		}
 	}
+
 }
