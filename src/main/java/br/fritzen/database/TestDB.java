@@ -1,5 +1,6 @@
 package br.fritzen.database;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class TestDB {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Connection con = null;
 		try {
@@ -19,11 +20,23 @@ public class TestDB {
 			
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
-
-			statement.executeUpdate("drop table if exists person");
-			statement.executeUpdate("create table person (id integer, name string)");
-			statement.executeUpdate("insert into person values(1, 'leo')");
-			statement.executeUpdate("insert into person values(2, 'yui')");
+//
+//			String sql = FileUtils.loadTextFile("src/main/java/res/descricao.sql");
+//			System.out.println(sql);
+//			statement.executeUpdate(sql);
+			
+//			statement.executeUpdate("drop table if exists person");
+//			statement.executeUpdate("create table person (id integer, name string)");
+//			statement.executeUpdate("insert into person values(1, 'leo')");
+//			statement.executeUpdate("insert into person values(2, 'yui')");
+			
+//			Person p = new Person();
+//			p.setId(7);
+//			p.setName("Vinícius");
+//			
+//			//data access object
+//			PersonDao dao = new PersonDao();
+//			dao.insert(p);
 			
 			ResultSet rs = statement.executeQuery("select * from person");
 			while (rs.next()) {
