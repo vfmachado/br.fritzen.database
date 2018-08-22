@@ -16,12 +16,12 @@ public class Database {
 		
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite::resource:"
-					 + TestDB.class.getResource("/res/sample.db"));
+					 + TestDB.class.getResource("/sample.db"));
 			
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
-			String sql = FileUtils.loadTextFile("src/main/java/res/descricao.sql");
+			String sql = FileUtils.loadTextFile("/descricao.sql");
 			statement.executeUpdate(sql);
 			
 		} catch (Exception e) {

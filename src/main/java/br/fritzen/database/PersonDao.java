@@ -1,6 +1,7 @@
 package br.fritzen.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,10 +17,20 @@ public class PersonDao {
 		con = Database.getInstance().getConnection();
 	}
 	
+	
 	public void insert(Person person) throws SQLException {
 		
-		Statement stat = con.createStatement();
-		stat.executeUpdate("insert into person values(" + person.getId() + ", '" + person.getName() + "')");
+		//Statement stat = con.createStatement();
+		//stat.executeUpdate("insert into person values(" + person.getId() + ", '" + person.getName() + "')");
+		
+		PreparedStatement stat = con.prepareStatement(
+				"insert into person values(?, ?)");
+		
+		stat.setInt(1, person.getId());
+		stat.setString(2, person.getName());
+		
+		stat.execute();
+		
 		stat.close();
 	}
 	

@@ -87,6 +87,7 @@ public class TestDB {
 		}
 		
 		System.out.println("Obrigado por utilizar este sistema!");
+		in.close();
 	}
 
 }

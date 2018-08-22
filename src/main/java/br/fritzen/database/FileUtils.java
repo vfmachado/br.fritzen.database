@@ -1,8 +1,10 @@
 package br.fritzen.database;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 
@@ -16,7 +18,9 @@ public class FileUtils {
 		
 		long time = System.currentTimeMillis();
 		
-		BufferedReader reader = new BufferedReader(new FileReader(filename));
+		InputStream inputStream = FileUtils.class.getResourceAsStream(filename);
+		InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+		BufferedReader reader = new BufferedReader(streamReader);
 		StringBuilder sb = new StringBuilder();
 		String line;
 		
